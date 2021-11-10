@@ -38,12 +38,16 @@ class LoginController {
     }
 
 
-    public static function olvide(){
-        echo 'Desde olvide';
+    public static function olvide(Router $router){
+        
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             
         }
+
+        $router->render('auth/olvide',[
+            'titulo' => 'Recuperar Cuenta'
+        ]);
     }
 
 
