@@ -28,8 +28,8 @@
         </form>
 
         <div class="acciones">
-            <a href="/crear">¿Aun no tienes una Cuenta? Obten una</a>
-            <a href="/olvide">¿Olvidaste tu Contraseña? Reestablecer password</a>
+            <a href="/crear">¿Aun no tienes una Cuenta? Crea una</a>
+            <a href="/olvide">¿Olvidaste tu Contraseña?</a>
         </div>
 
 
