@@ -29,6 +29,5 @@
         </div>
 
 
-    </div>
-    <!--.contenedor-sm-->
+    </div><!--Fin.contenedor-sm-->
 </div>
