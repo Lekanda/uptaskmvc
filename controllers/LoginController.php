@@ -51,7 +51,7 @@ class LoginController {
                     // Mandar el mail
                     $email= new Email($usuario->email, $usuario->nombre, $usuario->token);
                     $email->enviarConfirmacion();
-                    debuguear($email);
+                    // debuguear($email);
                     // redireccionar a Iniciar sesion
                     if($resultado){
                         header('Location: /mensaje');
