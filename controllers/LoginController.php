@@ -74,9 +74,24 @@ class LoginController {
             // Comprobar que existe el email
             $usuario = new Usuario($_POST);
             $alertas = $usuario->validarEmail();
-            debuguear($usuario);
             if (empty($alertas)) {
-                
+                // Buscar el usuario
+                $usuario = Usuario::where('email',$usuario->email);
+                if ($usuario && $usuario->confirmado) {
+                    // Generar token
+                    $usuario->crearToken();
+                    unset($usuario->password2);
+                    // Actualizar el usuario
+
+                    // Enviar el email
+
+                    // Imprimir la alerta
+                    debuguear($usuario);
+                } else {
+                    Usuario::setAlerta('error','Ese email no esta registrado o no esta confirmada la cuenta');
+                    $alertas = Usuario::getAlertas();
+                }
+
             }
             
 
