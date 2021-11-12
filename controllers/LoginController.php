@@ -80,22 +80,26 @@ class LoginController {
                 if ($usuario && $usuario->confirmado) {
                     // Generar token
                     $usuario->crearToken();
+                    // Guardar en la base de datos
+                    $usuario->guardar();
+
                     unset($usuario->password2);
+                    // debuguear($usuario);
                     // Actualizar el usuario
 
                     // Enviar el email
 
                     // Imprimir la alerta
-                    debuguear($usuario);
+                    Usuario::setAlerta('exito','Se ha enviado un email a tu cuenta con las instrucciones');
+
+                    
                 } else {
                     Usuario::setAlerta('error','Ese email no esta registrado o no esta confirmada la cuenta');
-                    $alertas = Usuario::getAlertas();
                 }
-
             }
-            
 
         }
+        $alertas = Usuario::getAlertas();
         // debuguear($alertas);
         $router->render('auth/olvide',[
             'titulo' => 'Recuperar Cuenta',
