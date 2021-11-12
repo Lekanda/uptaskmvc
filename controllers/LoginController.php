@@ -10,7 +10,6 @@ class LoginController {
     public static function login(Router $router) {
         $alertas = [];
 
-
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $usuario = new Usuario($_POST);
             unset($usuario->password2);
@@ -21,12 +20,25 @@ class LoginController {
                 if(!$usuario || !$usuario->confirmado){
                     Usuario::setAlerta('error','Usuario no existe o cuenta no confirmada');
                 } else {
-                    
-
+                    // Comprobar password
+                    if(password_verify($_POST['password'],$usuario->password)){
+                        // Guardar usuario en Session
+                        session_start();
+                        $_SESSION['id'] = $usuario->id;
+                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['email'] = $usuario->email;
+                        $_SESSION['login'] = true;
+                        // Redireccionar a home
+                        header('Location: /proyectos');
+                    } else {
+                        Usuario::setAlerta('error','Password incorrecto');
+                        
+                    }
                 }
             }
-            // debuguear($auth);
         }
+
+
         $alertas = Usuario::getAlertas();
         $router->render('auth/login',[
             'titulo' => 'Iniciar Sesion',
