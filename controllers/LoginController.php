@@ -29,7 +29,7 @@ class LoginController {
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['login'] = true;
                         // Redireccionar a home
-                        header('Location: /dasboard');
+                        header('Location: /dashboard');
                     } else {
                         Usuario::setAlerta('error','Password incorrecto');
                         
@@ -48,8 +48,9 @@ class LoginController {
 
 
     public static function logout() {
-        echo 'Desde logout';
-
+        session_start();
+        $_SESSION = [];
+        header('Location: /');
     }
 
     

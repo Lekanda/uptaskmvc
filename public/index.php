@@ -34,8 +34,8 @@ $router->get('/confirmar', [LoginController::class, 'confirmar']);
 
 
 /************************* Proyectos  ******************/
-$router->get('/dasboard', [DashboardController::class, 'index']);
-$router->post('/dasboard', [DashboardController::class, 'index']);
+$router->get('/dashboard', [DashboardController::class, 'index']);
+$router->post('/dashboard', [DashboardController::class, 'index']);
 
 
 
