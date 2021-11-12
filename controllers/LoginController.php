@@ -46,7 +46,6 @@ class LoginController {
                     // Generar Token
                     $usuario->crearToken();
                     // Guardar en la base de datos
-                    // debuguear($usuario);
                     $resultado = $usuario->guardar();
                     // Mandar el mail
                     $email= new Email($usuario->email, $usuario->nombre, $usuario->token);
@@ -80,24 +79,19 @@ class LoginController {
                 if ($usuario && $usuario->confirmado) {
                     // Generar token
                     $usuario->crearToken();
-                    // Guardar en la base de datos
-                    $usuario->guardar();
 
                     unset($usuario->password2);
-                    // debuguear($usuario);
                     // Actualizar el usuario
-
+                    $usuario->guardar();
                     // Enviar el email
-
+                    $email= new Email($usuario->email, $usuario->nombre, $usuario->token);
+                    $email->enviarInstrucciones();
                     // Imprimir la alerta
                     Usuario::setAlerta('exito','Se ha enviado un email a tu cuenta con las instrucciones');
-
-                    
                 } else {
                     Usuario::setAlerta('error','Ese email no esta registrado o no esta confirmada la cuenta');
                 }
             }
-
         }
         $alertas = Usuario::getAlertas();
         // debuguear($alertas);
