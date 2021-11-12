@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/app.php';
 
 use MVC\Router;
 use Controllers\LoginController;
+use Controllers\DashboardController;
 $router = new Router();
 
 /*********************************LOGIN % AUTH*****************************/
@@ -29,7 +30,9 @@ $router->get('/confirmar', [LoginController::class, 'confirmar']);
 /*************************************************************************/
 
 
-
+/************************* Proyectos  ******************/
+$router->get('/dasboard', [DashboardController::class, 'index']);
+$router->post('/dasboard', [DashboardController::class, 'index']);
 
 
 

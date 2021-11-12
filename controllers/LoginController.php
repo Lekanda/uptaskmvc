@@ -29,7 +29,7 @@ class LoginController {
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['login'] = true;
                         // Redireccionar a home
-                        header('Location: /proyectos');
+                        header('Location: /dasboard');
                     } else {
                         Usuario::setAlerta('error','Password incorrecto');
                         
