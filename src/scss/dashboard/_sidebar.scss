@@ -21,6 +21,7 @@
             text-transform: uppercase;
             font-weight: bold;
             font-size: 1.5rem;
+            &.activo,
             &:hover{
                 background-color: darken($color: v.$indigo, $amount: 20);
                 border-radius: 5px;
