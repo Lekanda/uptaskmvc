@@ -8,14 +8,24 @@ use MVC\Router;
 
 class LoginController {
     public static function login(Router $router) {
-
+        $alertas = [];
 
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            
+            $auth = new Usuario($_POST);
+            unset($auth->password2);
+            $alertas = $auth->validarLogin();
+            if(empty($alertas)){
+                // Buscar usuario por email
+                $usuario = Usuario::where('email',$auth->email);
+                debuguear($usuario);
+            }
+            // debuguear($auth);
         }
+        $alertas = Usuario::getAlertas();
         $router->render('auth/login',[
-            'titulo' => 'Iniciar Sesion'
+            'titulo' => 'Iniciar Sesion',
+            'alertas' => $alertas
         ]);
     }
 
