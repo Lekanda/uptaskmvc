@@ -118,7 +118,25 @@ class LoginController {
         }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-           
+            // Añadir un nuevo password
+            $usuario->sincronizar($_POST);
+            // Validar  el password
+            $alertas = $usuario->validarPassword();
+            if(empty($alertas)){
+                // Hashear el password
+                $usuario->hashPassword();
+                // Eliminar password2
+                unset($usuario->password2);
+                // Borrar el token
+                $usuario->token = null;
+                // Guardar el usuario
+                $resultado=$usuario->guardar();
+                if($resultado){
+                    // Redireccionar a Iniciar sesion
+                    header('Location: /');
+                }
+                
+            }
         }
         $alertas = Usuario::getAlertas();
         $router->render('auth/reestablecer',[

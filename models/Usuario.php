@@ -57,7 +57,19 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    public function validarPassword() {
+        if(!$this->password){
+            self::$alertas['error'][] = 'El password es obligatorio';
+        }
+        if(strlen($this->password) < 6){
+            self::$alertas['error'][] = 'Password minimo 6 caracteres';
+        }
+        if($this->password !== $this->password2){
+            self::$alertas['error'][] = 'El password no coincide';
+        }
 
+        return self::$alertas;
+    }
 
 
     // Hashear Password
