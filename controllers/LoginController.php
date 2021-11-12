@@ -56,9 +56,6 @@ class LoginController {
                     if($resultado){
                         header('Location: /mensaje');
                     }
-                    
-
-
                 }
             }
         }
@@ -72,14 +69,22 @@ class LoginController {
 
 
     public static function olvide(Router $router){
-        
-
+        $alertas = [];
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Comprobar que existe el email
+            $usuario = new Usuario($_POST);
+            $alertas = $usuario->validarEmail();
+            debuguear($usuario);
+            if (empty($alertas)) {
+                
+            }
             
-        }
 
+        }
+        // debuguear($alertas);
         $router->render('auth/olvide',[
-            'titulo' => 'Recuperar Cuenta'
+            'titulo' => 'Recuperar Cuenta',
+            'alertas' => $alertas
         ]);
     }
 
