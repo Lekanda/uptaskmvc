@@ -12,13 +12,18 @@ class LoginController {
 
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $auth = new Usuario($_POST);
-            unset($auth->password2);
-            $alertas = $auth->validarLogin();
+            $usuario = new Usuario($_POST);
+            unset($usuario->password2);
+            $alertas = $usuario->validarLogin();
             if(empty($alertas)){
                 // Buscar usuario por email
-                $usuario = Usuario::where('email',$auth->email);
-                debuguear($usuario);
+                $usuario = Usuario::where('email',$usuario->email);
+                if(!$usuario || !$usuario->confirmado){
+                    Usuario::setAlerta('error','Usuario no existe o cuenta no confirmada');
+                } else {
+                    
+
+                }
             }
             // debuguear($auth);
         }
