@@ -10,13 +10,6 @@ class Usuario extends ActiveRecord {
 
 
 
-    // public $id;
-    // public $nombre;
-    // public $email;
-    // public $password;
-    // public $token;
-    // public $confirmado;
-
     public function __construct($args=[]) {
         $this->id =$args['id'] ?? null;
         $this->nombre =$args['nombre'] ?? '';
