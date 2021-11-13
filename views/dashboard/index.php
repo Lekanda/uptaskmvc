@@ -3,7 +3,7 @@
     <?php if (count($proyectos) === 0){ ?>
         <p class="no-proyectos">No Hay Proyectos Aun <a href="/crear-proyecto">Crea Uno</a></p>
     <?php } else { ?>
-        <ul class="listado-productos">
+        <ul class="listado-proyectos">
             <?php foreach ($proyectos as $proyecto) { ?>
                 <li class="proyecto">
                     <a href="proyecto?url=<?php echo $proyecto->url; ?>">
