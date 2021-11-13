@@ -8,9 +8,6 @@ use MVC\Router;
 class DashboardController {
 
 
-
-
-
     public static function index(Router $router) {
         session_start();
         isAuth();
@@ -19,9 +16,6 @@ class DashboardController {
             'titulo' => 'Proyectos'
         ]);
     }
-
-
-
 
 
 
@@ -41,7 +35,6 @@ class DashboardController {
                 // campo de PropietarioId
                 $proyecto->propietarioId = $_SESSION['id'];
                 $resultado = $proyecto->guardar();
-                // debuguear($resultado);
                 // Redireccionar a la url generada
                 header('Location: /proyecto?url=' . $proyecto->url);
             }
@@ -56,8 +49,26 @@ class DashboardController {
 
 
 
+    public static function proyecto(Router $router){
+        session_start();
+        isAuth();
 
+        // Revisar que la persona que esta visitando el proyecto sea el propietario
+        $url = $_GET['url'];
+        if(!$url){
+            header('Location: /dashboard');
+        }
+        $proyecto = Proyecto::where('url', $url);
+        if($proyecto->propietarioId !== $_SESSION['id']){
+            header('Location: /dashboard');
+        }
+        // debuguear($proyecto);
 
+        $router->render('dashboard/proyecto', [
+            'titulo' => $proyecto->proyecto
+        ]);
+
+    }
 
 
 
