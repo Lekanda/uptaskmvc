@@ -35,9 +35,16 @@ class DashboardController {
             // Validaciones
             $alertas = $proyecto->validarProyecto();
             if(empty($alertas)){
-                
+                // Generar token para campo de url
+                $hash = md5(uniqid());
+                $proyecto->url = $hash;
+                // campo de PropietarioId
+                $proyecto->propietarioId = $_SESSION['id'];
+                $resultado = $proyecto->guardar();
+                // debuguear($resultado);
+                // Redireccionar a la url generada
+                header('Location: /proyecto?url=' . $proyecto->url);
             }
-            // debuguear($proyecto);
 
         }
 

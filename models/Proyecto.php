@@ -23,6 +23,8 @@ class Proyecto extends ActiveRecord
         }
     }
 
+    
+
 
 
 
