@@ -27,6 +27,25 @@
         }, 0);
 
 
+        // Añadir funcion al boton Cancelar del modal
+        modal.addEventListener('click', (e) => {
+            e.preventDefault(); // para que el valor por default no funcione. En este caso es el submit del boton Añadir tarea
+
+            if(e.target.classList.contains('cerrar-modal')) {
+                const formulario = document.querySelector('.formulario');
+                formulario.classList.add('cerrar');
+                setTimeout(() => {
+                    modal.remove();
+                }, 500);
+                
+            }
+
+
+            console.log(e.target);
+        });
+
+
+
         document.querySelector('body').appendChild(modal);
     }
 
