@@ -78,10 +78,10 @@
         // console.log(referencia.parentElement);
         // console.log(referencia.nextElementSibling);// nextElementSibling: pone el elemento despues del elemento que le pasamos como referencia
 
-        // Eliminar la lerta despues de 5sg
+        // Eliminar la alerta despues de 5sg
         setTimeout(() => {
             alerta.remove();
-        }, 5000);
+        }, 2000);
     }
 
 
@@ -102,7 +102,14 @@
                 body: datos
             });
             const resultado = await respuesta.json();
+            console.log(resultado);
             mostrarAlerta(resultado.mensaje, resultado.tipo, document.querySelector('.formulario legend'));
+            if(resultado.tipo === 'exito'){
+                const modal = document.querySelector('.modal');
+                setTimeout(() => {
+                    modal.remove();
+                }, 3000);
+            }
         } catch (error) {
             console.log(error);
         }
