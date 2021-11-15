@@ -40,8 +40,21 @@
                 
             }
 
+            if(e.target.classList.contains('submit-nueva-tarea')) {
+                submitFormularioNuevaTarea();
+            }
+            function submitFormularioNuevaTarea(){
+                const tarea = document.querySelector('#tarea').value.trim();
+                if(tarea === ''){
+                    // Mostrar una alerta de error
+                    console.log('La tarea no tiene nombre');
+                    return;
+                }
+                
+            }
 
-            console.log(e.target);
+
+            
         });
 
 
