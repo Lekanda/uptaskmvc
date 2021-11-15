@@ -8,7 +8,10 @@ class TareaController {
         echo "TareaController::index()";
     }
     public static function crear() {
-        echo "TareaController::crear()";
+        
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            echo json_encode($_POST);
+        }
     }
     public static function actualizar() {
         echo "TareaController::actualizar()";
