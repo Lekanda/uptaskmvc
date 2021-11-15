@@ -31,6 +31,10 @@
             margin-bottom: 2rem;
             display: block;
         }
+        input[type="text"]{
+            border: 1px solid v.$gris;
+            border-radius: 5px;
+        }
         .opciones{
             display: flex;
             justify-content: space-between;

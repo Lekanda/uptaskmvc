@@ -37,29 +37,51 @@
                 setTimeout(() => {
                     modal.remove();
                 }, 500);
-                
             }
-
             if(e.target.classList.contains('submit-nueva-tarea')) {
                 submitFormularioNuevaTarea();
             }
-            function submitFormularioNuevaTarea(){
-                const tarea = document.querySelector('#tarea').value.trim();
-                if(tarea === ''){
-                    // Mostrar una alerta de error
-                    console.log('La tarea no tiene nombre');
-                    return;
-                }
-                
-            }
+        })
 
+        document.querySelector('.dashboard').appendChild(modal);
+    }
 
-            
-        });
+    function submitFormularioNuevaTarea(){
+        const tarea = document.querySelector('#tarea').value.trim();
+        if(tarea === ''){
+            // Mostrar una alerta de error
+            mostrarAlerta('La tarea no tiene nombre', 'error',document.querySelector('.formulario legend'));
+            return;
+        } 
+        agregarTarea(tarea);
+        
+    }
+    // Mostrar una alerta de error
+    function mostrarAlerta(mensaje,tipo,referencia){
 
+        // Previene la creacion de alerta de error si ya existe una alerta de error
+        if(document.querySelector('.alerta')){
+            return;
+        }
 
+        const alerta = document.createElement('DIV');
+        alerta.classList.add('alerta',tipo);
+        alerta.textContent = mensaje;
+        // Inserta la alerta antes del legend. Sí ponemos el .appendChild(alerta) no funciona , pone el elemento dentro del legend
+        referencia.parentElement.insertBefore(alerta,referencia.nextElementSibling);// lo pone antes del legend
+        console.log(referencia);
+        console.log(referencia.parentElement);
+        console.log(referencia.nextElementSibling);// nextElementSibling: pone el elemento despues del elemento que le pasamos como referencia
 
-        document.querySelector('body').appendChild(modal);
+        // Eliminar la lerta despues de 5sg
+        setTimeout(() => {
+            alerta.remove();
+        }, 5000);
+    }
+
+    // Agregar tarea al proyecto y a la DB
+    function agregarTarea(tarea) {
+        
     }
 
 })();
