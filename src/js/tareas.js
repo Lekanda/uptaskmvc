@@ -74,9 +74,9 @@
         alerta.textContent = mensaje;
         // Inserta la alerta antes del legend. Sí ponemos el .appendChild(alerta) no funciona , pone el elemento dentro del legend
         referencia.parentElement.insertBefore(alerta,referencia.nextElementSibling);// lo pone antes del legend
-        console.log(referencia);
-        console.log(referencia.parentElement);
-        console.log(referencia.nextElementSibling);// nextElementSibling: pone el elemento despues del elemento que le pasamos como referencia
+        // console.log(referencia);
+        // console.log(referencia.parentElement);
+        // console.log(referencia.nextElementSibling);// nextElementSibling: pone el elemento despues del elemento que le pasamos como referencia
 
         // Eliminar la lerta despues de 5sg
         setTimeout(() => {
@@ -91,7 +91,7 @@
         // Construir la peticion API a /api/tarea
         const datos = new FormData();
         datos.append('nombre', tarea);
-        datos.append('proyectoId', obtenerProyecto());
+        datos.append('proyectoId', obtenerProyecto());  
 
 
         // para la peticion a la API
@@ -102,7 +102,7 @@
                 body: datos
             });
             const resultado = await respuesta.json();
-            console.log(resultado);
+            mostrarAlerta(resultado.mensaje, resultado.tipo, document.querySelector('.formulario legend'));
         } catch (error) {
             console.log(error);
         }
@@ -112,6 +112,7 @@
 
 
     function obtenerProyecto(){
+        // Coge los parametros de la URL
         const proyectoParamsURL = new URLSearchParams(window.location.search);
         const proyecto = proyectoParamsURL.get('url');
         // console.log(typeof proyecto);
