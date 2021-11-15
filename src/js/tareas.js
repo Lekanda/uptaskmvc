@@ -81,7 +81,7 @@
 
     // Agregar tarea al proyecto y a la DB
     function agregarTarea(tarea) {
-        
+
     }
 
 })();
