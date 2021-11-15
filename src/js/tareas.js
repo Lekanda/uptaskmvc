@@ -46,6 +46,8 @@
         document.querySelector('.dashboard').appendChild(modal);
     }
 
+
+
     function submitFormularioNuevaTarea(){
         const tarea = document.querySelector('#tarea').value.trim();
         if(tarea === ''){
@@ -56,6 +58,9 @@
         agregarTarea(tarea);
         
     }
+
+
+
     // Mostrar una alerta de error
     function mostrarAlerta(mensaje,tipo,referencia){
 
@@ -79,11 +84,16 @@
         }, 5000);
     }
 
+
+
     // Agregar tarea al proyecto y a la DB
     async function agregarTarea(tarea) {
         // Construir la peticion API a /api/tarea
         const datos = new FormData();
         datos.append('nombre', tarea);
+        datos.append('proyectoId', obtenerProyecto());
+
+
         // para la peticion a la API
         try {
             const url = 'http://localhost:3000/api/tarea';
@@ -92,10 +102,25 @@
                 body: datos
             });
             const resultado = await respuesta.json();
+            console.log(resultado);
         } catch (error) {
             console.log(error);
         }
     }
+
+
+
+
+    function obtenerProyecto(){
+        const proyectoParamsURL = new URLSearchParams(window.location.search);
+        const proyecto = proyectoParamsURL.get('url');
+        // console.log(typeof proyecto);
+        return proyecto;
+    }
+
+
+
+
 
 })();
 // El () final para que se ejecute automaticamente la funcion.
