@@ -155,7 +155,7 @@
         // Eliminar la alerta despues de 5sg
         setTimeout(() => {
             alerta.remove();
-        }, 2000);
+        }, 4000);
     }
 
 
@@ -182,6 +182,8 @@
                 const modal = document.querySelector('.modal');
                 setTimeout(() => {
                     modal.remove();
+
+                    window.location.reload();
                 }, 3000);
             }
         } catch (error) {
