@@ -33,6 +33,10 @@
             contenedorTareas.appendChild(textoNoTareas);
             return;
         }
+        const estados ={
+            0: 'Pendiente',
+            1: 'Completada'
+        }
         tareas.forEach(tarea => {
             const contenedorTarea = document.createElement('LI');
             contenedorTarea.dataset.tareaId = tarea.id;
@@ -40,7 +44,19 @@
 
             const nombreTarea = document.createElement('P');
             nombreTarea.textContent = tarea.nombre;
-            console.log(contenedorTarea);
+
+            const opcionesDiv = document.createElement('DIV');
+            opcionesDiv.classList.add('opciones');
+
+            // Botones
+            const btnEstadoTarea = document.createElement('BUTTON');
+            btnEstadoTarea.classList.add('estado-tarea');
+            btnEstadoTarea.classList.add(`${estados[tarea.estado].toLowerCase()}`)
+            btnEstadoTarea.textContent = estados[tarea.estado];
+            btnEstadoTarea.dataset.estadoTarea = tarea.estado;
+
+            console.log(btnEstadoTarea);
+
         })
 
     }
