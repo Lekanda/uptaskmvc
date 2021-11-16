@@ -1,8 +1,34 @@
 // Al tener varios archivos js en un HTML(scripts) se pueden pisar las variables unas con otras. Para eso creamos esta funcion IIFE que hace que esa variable solo este disponible en esta funcion y no pasen a otro .js unido a un script..
 (function() {
+
+    obtenerTareas();
+
+
     // Boton para mostrar el Modal de agregar tarea
     const nuevaTareaBtn = document.querySelector('#agregar-tarea');
     nuevaTareaBtn.addEventListener('click', mostrarFormulario);
+
+    async function obtenerTareas(){
+        try {
+            const idproyecto = obtenerProyecto();
+            const url = `http://localhost:3000/api/tareas?url=${idproyecto} `;
+            const respuesta = await fetch(url);
+            const resultado = await respuesta.json();
+            const {tareas} = resultado;
+            mostrarTareas(tareas);
+            console.log(tareas);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function mostrarTareas(tareas){
+        console.log('Mostrando tareas');
+
+    }
+
+
+
 
     function mostrarFormulario() {
         const modal = document.createElement('DIV');

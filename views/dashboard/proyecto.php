@@ -13,5 +13,4 @@
 
 <?php $script = '
     <script src="build/js/tareas.js"></script>
-    <script src="build/js/app.js"></script>
 '; ?>
