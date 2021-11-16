@@ -2,6 +2,7 @@
 (function() {
 
     obtenerTareas();
+    let  tareas = [];
 
 
     // Boton para mostrar el Modal de agregar tarea
@@ -14,15 +15,19 @@
             const url = `http://localhost:3000/api/tareas?url=${idproyecto} `;
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
-            const {tareas} = resultado;
-            mostrarTareas(tareas);
+            // console.log('Resultado');
+            // console.log(resultado);
+
+            tareas = resultado.tareas;
+            mostrarTareas();
             // console.log(tareas);
         } catch (error) {
             console.log(error);
         }
     }
 
-    function mostrarTareas(tareas){
+    function mostrarTareas(){
+        limpiarTareas();
         if (tareas.length === 0){
             const contenedorTareas = document.querySelector('#listado-tareas');
 
@@ -68,7 +73,7 @@
             const listadoTareas = document.querySelector('#listado-tareas');
             listadoTareas.appendChild(contenedorTarea);
 
-            console.log(contenedorTarea);
+            // console.log(contenedorTarea);
             // console.log(btnEstadoTarea);
 
         })
@@ -155,7 +160,7 @@
         // Eliminar la alerta despues de 5sg
         setTimeout(() => {
             alerta.remove();
-        }, 4000);
+        }, 2000);
     }
 
 
@@ -183,8 +188,18 @@
                 setTimeout(() => {
                     modal.remove();
 
-                    window.location.reload();
-                }, 3000);
+                }, 2000);
+
+                // Agregar el objeto de tarea al global de tarea
+                const tareaObj = {
+                    id: String(resultado.id),
+                    nombre: tarea,
+                    estado: "0",
+                    proyectoId: resultado.proyectoId
+                }
+                tareas = [...tareas, tareaObj];
+                mostrarTareas();
+                console.log(tareaObj);
             }
         } catch (error) {
             console.log(error);
@@ -200,6 +215,20 @@
         const proyecto = proyectoParamsURL.get('url');
         return proyecto;
     }
+
+
+
+    function limpiarTareas() {
+        const listadoTareas = document.querySelector('#listado-tareas');
+        while (listadoTareas.firstChild) {
+            listadoTareas.removeChild(listadoTareas.firstChild);
+        }
+            
+    }
+
+
+
+
 
 
 
