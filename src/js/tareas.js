@@ -122,7 +122,6 @@
         // Coge los parametros de la URL
         const proyectoParamsURL = new URLSearchParams(window.location.search);
         const proyecto = proyectoParamsURL.get('url');
-        // console.log(typeof proyecto);
         return proyecto;
     }
 
