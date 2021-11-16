@@ -53,8 +53,15 @@ class TareaController {
 
 
     public static function actualizar() {
-        echo "TareaController::actualizar()";
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+        }
     }
+
+
+
+
     public static function eliminar() {
         echo "TareaController::eliminar()";
     }

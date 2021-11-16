@@ -130,6 +130,7 @@
 
 
 
+
     function submitFormularioNuevaTarea(){
         const tarea = document.querySelector('#tarea').value.trim();
         if(tarea === ''){
@@ -140,6 +141,7 @@
         agregarTarea(tarea);
         
     }
+
 
 
 
@@ -175,7 +177,6 @@
         datos.append('nombre', tarea);
         datos.append('proyectoId', obtenerProyecto());  
 
-
         // para la peticion a la API
         try {
             const url = 'http://localhost:3000/api/tarea';
@@ -210,6 +211,7 @@
     }
 
 
+
     function cambiarEstadoTarea(tarea) { 
         const nuevoEstado = tarea.estado === "1" ? "0" : "1";
         tarea.estado = nuevoEstado;
@@ -218,9 +220,35 @@
         // console.log(tareas);
     }
 
-    function actualizarTarea(tarea) { 
-        
-    
+
+
+
+    async function actualizarTarea(tarea) { 
+        const {estado,nombre,id,proyectoId} = tarea;
+
+        const datos = new FormData();
+        datos.append('id', id);
+        datos.append('nombre', nombre);
+        datos.append('estado', estado);
+        datos.append('proyectoId', obtenerProyecto());
+
+        // Para leer 'datos'
+        // for(let valor of datos.values()){
+        //     console.log(valor);
+        // }
+
+        try {
+            const url = 'http://localhost:3000/api/tarea/actualizar';
+
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: datos
+            });
+            const resultado = await respuesta.json();
+            console.log(respuesta);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
