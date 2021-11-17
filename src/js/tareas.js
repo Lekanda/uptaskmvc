@@ -259,7 +259,7 @@
                     if(tareaMemoria.id === id){
                         tareaMemoria.estado = estado;
                     }
-                    // este return asigan a tareas los datos cambiados de 'tareaMemoria'
+                    // este return asigna a tareas los datos cambiados de 'tareaMemoria'
                     return tareaMemoria;
                 });
                 mostrarTareas();
@@ -284,7 +284,30 @@
     }
 
     async function eliminarTarea(tarea) {
+        const {estado,nombre,id} = tarea;
         const datos = new FormData();
+        datos.append('id', id);
+        datos.append('nombre', nombre);
+        datos.append('estado', estado);
+        datos.append('proyectoId', obtenerProyecto());
+        try {
+            const url = 'http://localhost:3000/api/tarea/eliminar';
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: datos
+            });
+            const resultado = await respuesta.json();
+            if(resultado.resultado){
+                // Mensaje con SweetAlert2
+                Swal.fire('Eliminado!',resultado.mensaje,'success');
+
+                tareas = tareas.filter(tareaMemoria => tareaMemoria.id !== id);
+                mostrarTareas();
+            }             
+            
+        } catch (error) {
+            console.log(error);
+        }
         
     }
 
