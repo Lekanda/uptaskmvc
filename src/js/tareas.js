@@ -252,6 +252,14 @@
                 mostrarAlerta(
                     resultado.respuesta.mensaje, resultado.respuesta.tipo,document.querySelector('.contenedor-nueva-tarea')
                 );
+                tareas = tareas.map(tareaMemoria => {
+                    if(tareaMemoria.id === id){
+                        tareaMemoria.estado = estado;
+                    }
+                    // este return asigan a tareas los datos cambiados de 'tareaMemoria'
+                    return tareaMemoria;
+                });
+                mostrarTareas();
             }
         } catch (error) {
             console.log(error);
