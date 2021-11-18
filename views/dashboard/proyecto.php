@@ -17,7 +17,7 @@
                         type="radio"
                         id="todas"
                         name="filtro"
-                        value="todas"
+                        value=""
                         checked
                     />
                 </div>

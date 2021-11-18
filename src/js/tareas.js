@@ -3,6 +3,7 @@
 
     obtenerTareas();
     let  tareas = [];
+    let filtradas = [];
 
 
     // Boton para mostrar el Modal de agregar tarea
@@ -10,6 +11,28 @@
     nuevaTareaBtn.addEventListener('click', function() {
         mostrarFormulario();
     });
+
+
+
+    // Filtros de busqueda para los radius-select
+    const filtros = document.querySelectorAll('#filtros input[type="radio"]');
+    filtros.forEach(radio  => {
+        radio.addEventListener('input', filtrarTareas);
+    });
+    function filtrarTareas(e) { 
+        const filtro = e.target.value;
+        if(filtro !== ''){
+            filtradas = tareas.filter(tarea => tarea.estado === filtro);
+        }else{
+            filtradas = [];
+        }
+        mostrarTareas();
+    }
+
+
+
+
+
 
     async function obtenerTareas(){
         try {
@@ -22,7 +45,6 @@
 
             tareas = resultado.tareas;
             mostrarTareas();
-            // console.log(tareas);
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +55,9 @@
 
     function mostrarTareas(){
         limpiarTareas();
-        if (tareas.length === 0){
+        const arrayTareas = filtradas.length ? filtradas : tareas;
+
+        if (arrayTareas.length === 0){
             const contenedorTareas = document.querySelector('#listado-tareas');
 
             const textoNoTareas = document.createElement('LI');
@@ -47,7 +71,7 @@
             0: 'Pendiente',
             1: 'Completa'
         }
-        tareas.forEach(tarea => {
+        arrayTareas.forEach(tarea => {
             const contenedorTarea = document.createElement('LI');
             contenedorTarea.dataset.tareaId = tarea.id;
             contenedorTarea.classList.add('tarea');
@@ -168,8 +192,6 @@
     }
 
 
-
-
     
 
 
@@ -197,6 +219,7 @@
             alerta.remove();
         }, 2000);
     }
+
 
 
 
@@ -239,6 +262,7 @@
             console.log(error);
         }
     }
+
 
 
 
