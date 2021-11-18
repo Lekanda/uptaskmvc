@@ -8,7 +8,7 @@
             >&#43; Nueva Tarea</button>
         </div>
 
-        <div id="filtros">
+        <div id="filtros" class="filtros">
             <div class="filtros-input">
                 <h2>Filtros:</h2>
                 <div class="campo">
