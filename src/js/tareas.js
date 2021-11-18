@@ -254,6 +254,7 @@
 
 
     async function actualizarTarea(tarea) { 
+        // Tarea del formulario cambiada
         const {estado,nombre,id,proyectoId} = tarea;
 
         const datos = new FormData();
@@ -276,12 +277,23 @@
             });
             const resultado = await respuesta.json();
             if(resultado.respuesta.tipo === 'exito'){
-                mostrarAlerta(
-                    resultado.respuesta.mensaje, resultado.respuesta.tipo,document.querySelector('.contenedor-nueva-tarea')
+                Swal.fire(
+                    resultado.respuesta.mensaje,
+                    resultado.respuesta.mensaje,
+                    'success',
                 );
+                console.log(resultado);
+                const modal = document.querySelector('.modal');
+                if(modal) {
+                    modal.remove();
+                }
+                    
+
+
                 tareas = tareas.map(tareaMemoria => {
                     if(tareaMemoria.id === id){
                         tareaMemoria.estado = estado;
+                        tareaMemoria.nombre = nombre;
                     }
                     // este return asigna a tareas los datos cambiados de 'tareaMemoria'
                     return tareaMemoria;
