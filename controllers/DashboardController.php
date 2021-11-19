@@ -130,12 +130,26 @@ class DashboardController {
                 $resultado = $usuario->comprobar_password();
                 if($resultado){
                     // Asignar el nuevo password
+                    $usuario->password = $usuario->password_nuevo;
+                    // Hashear el password nuevo
+                    $usuario->hashPassword();
+                    // Eliminar propiedades del bejeto que no se guardan
+                    unset($usuario->password2);
+                    unset($usuario->password_actual);
+                    unset($usuario->password_nuevo);
+                    unset($usuario->password_nuevo2);
+                    // Guardar en la base de datos
+                    $resultado = $usuario->guardar();
+                    if($resultado){
+                        // Mensaje de exito
+                        Usuario::setAlerta('exito', 'Password actualizado correctamente');
+                    }
                     
                    
                 }else{
                     // Mensaje de error. El password actual no coincide
                     Usuario::setAlerta('error', 'El password actual no coincide');
-                    $alertas = Usuario::getAlertas();
+                    // $alertas = Usuario::getAlertas();
                 }
             }
         }
