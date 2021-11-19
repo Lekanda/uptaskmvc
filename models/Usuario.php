@@ -16,6 +16,9 @@ class Usuario extends ActiveRecord {
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->password2 = $args['password2'] ?? '';
+        $this->password_actual = $args['password_actual'] ?? '';
+        $this->password_nuevo = $args['password_nuevo'] ?? '';
+        $this->password_nuevo2 = $args['password_nuevo'] ?? '';
         $this->token = $args['token'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
     }
@@ -73,6 +76,24 @@ class Usuario extends ActiveRecord {
             self::$alertas['error'][] = 'Password minimo 6 caracteres';
         }
         if($this->password !== $this->password2){
+            self::$alertas['error'][] = 'El password no coincide';
+        }
+
+        return self::$alertas;
+    }
+
+
+    public function nuevoPassword() {
+        if(!$this->password_actual){
+            self::$alertas['error'][] = 'El password actual es obligatorio';
+        }
+        if(!$this->password_nuevo){
+            self::$alertas['error'][] = 'El password nuevo es obligatorio';
+        }
+        if(strlen($this->password_nuevo) < 6){
+            self::$alertas['error'][] = 'Password nuevo minimo 6 caracteres';
+        }
+        if($this->password_nuevo !== $this->password_nuevo2){
             self::$alertas['error'][] = 'El password no coincide';
         }
 

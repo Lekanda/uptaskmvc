@@ -6,7 +6,7 @@
 
     <a href="/perfil" class="enlace">Volver a Perfil</a>
 
-    <form action="/perfil" method="POST" class="formulario">
+    <form action="/cambiar-password" method="POST" class="formulario">
         <div class="campo">
             <label for="password_actual">Password Actual:</label>
             <input 
@@ -23,6 +23,15 @@
                 id="password_nuevo"
                 name="password_nuevo" 
                 placeholder="Pon tu nuevo Password"
+            >
+        </div>
+        <div class="campo">
+            <label for="password_nuevo2">Repite Password Nuevo:</label>
+            <input 
+                type="password" 
+                id="password_nuevo2"
+                name="password_nuevo2" 
+                placeholder="Repite Password Nuevo"
             >
         </div>
 
