@@ -54,6 +54,7 @@ class DashboardController {
 
 
 
+
     public static function proyecto(Router $router){
         session_start();
         isAuth();
@@ -74,6 +75,7 @@ class DashboardController {
         ]);
 
     }
+
 
 
 
@@ -111,27 +113,32 @@ class DashboardController {
     }
 
 
+
+
     public static function cambiar_password(Router $router){
         session_start();
         isAuth();
         $alertas = [];
+        $usuario = Usuario::find($_SESSION['id']);
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $usuario = Usuario::find($_SESSION['id']);
-            
             // Sincronizar los datos del formulario con el objeto Usuario
             $usuario->sincronizar($_POST);
             // Validar los datos del formulario
-            $alertas = $usuario->nuevoPassword();
+            $alertas = $usuario->validarNuevoPassword();
             if (empty($alertas)) {
-                
+                $resultado = $usuario->comprobar_password();
+                if($resultado){
+                    // Asignar el nuevo password
+                    
+                   
+                }else{
+                    // Mensaje de error. El password actual no coincide
+                    Usuario::setAlerta('error', 'El password actual no coincide');
+                    $alertas = Usuario::getAlertas();
+                }
             }
-
-
-            debuguear($alertas);
-            
         }
-        
         
         $alertas = Usuario::getAlertas();
         $router->render('dashboard/cambiar-password',[
@@ -140,6 +147,4 @@ class DashboardController {
             'usuario' => $usuario
         ]);
     }
-
-
 }
