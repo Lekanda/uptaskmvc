@@ -87,20 +87,22 @@ class DashboardController {
             $usuario->sincronizar($_POST);
             $alertas = $usuario->validarPerfil();
             if(empty($alertas)){
-                // Guardar el Usuario
-                $usuario->guardar();
-
-                // Alerta todo ok
-                Usuario::setAlerta('exito', 'Perfil actualizado correctamente');
-                $alertas = Usuario::getAlertas();
-
-
-                // Asignar el nombre nuevo a la barra
-                $_SESSION['nombre'] = $usuario->nombre;
+                $existeUsuario = Usuario::where('email', $usuario->email);
+                if($existeUsuario && $existeUsuario->id !== $_SESSION['id']){
+                    // Mensaje de error. Ya existe el usuario
+                    Usuario::setAlerta('error','Ese email ya esta registrado');
+                }else{
+                    // Guardar el Usuario
+                    $usuario->guardar();
+                    // Alerta todo ok
+                    Usuario::setAlerta('exito', 'Perfil actualizado correctamente');
+                    // Asignar el nombre nuevo a la barra
+                    $_SESSION['nombre'] = $usuario->nombre;
+                }
             }
         }
         
-
+        $alertas = Usuario::getAlertas();
         $router->render('dashboard/perfil',[
             'titulo' => 'Perfil',
             'alertas' => $alertas,
